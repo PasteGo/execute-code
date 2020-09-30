@@ -86,7 +86,7 @@
     }
     
     return {
-        avascript: execute_javascript
+        javascript: execute_javascript
     };
 });
 
