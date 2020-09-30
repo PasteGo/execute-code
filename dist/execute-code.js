@@ -85,7 +85,9 @@
         })();
     }
     
-    return execute_javascript;
+    return {
+        execute_javascript: execute_javascript
+    };
 });
 
 
