@@ -4,7 +4,7 @@
     } else if (typeof define === "function" && define.amd) {
         define([], factory);
     } else {
-        root.Clipboard = factory(root);
+        root.execute = factory(root);
     }
 }) (typeof global !== "undefined" ? global : this.window || this.global, function (root) {
 
@@ -86,7 +86,7 @@
     }
     
     return {
-        execute_javascript: execute_javascript
+        avascript: execute_javascript
     };
 });
 
