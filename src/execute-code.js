@@ -29,8 +29,7 @@
         if (isHtml) {
             $r.html(result);
         } else {
-            const ss = result.split('\n');
-            const htm = _.map(ss, (s) => encodeHtml(s).replace(/ /g, '&nbsp;')).join('<br>');
+            const htm = result.split('\n').map((s) => encodeHtml(s).replace(/ /g, '&nbsp;')).join('<br>');
             $r.html(htm);
         }
     }
