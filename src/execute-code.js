@@ -1,16 +1,13 @@
 (function (root, factory) {
-    if (typeof exports === "object") {
+    if (typeof exports === 'object') {
         module.exports = factory(root);
-    } else if (typeof define === "function" && define.amd) {
+    } else if (typeof define === 'function' && define.amd) {
         define([], factory);
     } else {
         root.execute = factory(root);
     }
-}) (typeof global !== "undefined" ? global : this.window || this.global, function (root) {
-
-    "use strict";
-
-    if (typeof define === "function" && define.amd){
+}(typeof global !== 'undefined' ? global : this.window || this.global, (root) => {
+    if (typeof define === 'function' && define.amd) {
         root = window;
     }
 
@@ -24,7 +21,7 @@
     }
 
     function setCodeResult(output, result, isHtml, isError) {
-        var $r = output;
+        const $r = output;
         $r.removeClass('output-alert-danger');
         if (isError) {
             $r.addClass('output-alert-danger');
@@ -32,10 +29,8 @@
         if (isHtml) {
             $r.html(result);
         } else {
-            var ss = result.split('\n');
-            var htm = _.map(ss, function (s) {
-                return encodeHtml(s).replace(/ /g, '&nbsp;');
-            }).join('<br>');
+            const ss = result.split('\n');
+            const htm = _.map(ss, (s) => encodeHtml(s).replace(/ /g, '&nbsp;')).join('<br>');
             $r.html(htm);
         }
     }
@@ -50,45 +45,41 @@
 
     function execute_javascript(code, output) {
         (function () {
-            var
-                buffer = '',
-                _log = function (s) {
-                    console.log(s);
-                    buffer = buffer + s + '\n';
-                },
-                _warn = function (s) {
-                    console.warn(s);
-                    buffer = buffer + s + '\n';
-                },
-                _error = function (s) {
-                    console.error(s);
-                    buffer = buffer + s + '\n';
-                },
-                _console = {
-                    trace: _log,
-                    debug: _log,
-                    log: _log,
-                    info: _log,
-                    warn: _warn,
-                    error: _error
-                };
+            let buffer = '';
+            const _log = function (s) {
+                console.log(s);
+                buffer = `${buffer + s}\n`;
+            };
+            const _warn = function (s) {
+                console.warn(s);
+                buffer = `${buffer + s}\n`;
+            };
+            const _error = function (s) {
+                console.error(s);
+                buffer = `${buffer + s}\n`;
+            };
+            const _console = {
+                trace: _log,
+                debug: _log,
+                log: _log,
+                info: _log,
+                warn: _warn,
+                error: _error,
+            };
             try {
-                eval('(function() {\n var console = _console; \n' + code + '\n})();');
+                eval(`(function() {\n var console = _console; \n${code}\n})();`);
                 if (!buffer) {
                     buffer = '(no output)';
                 }
                 showCodeResult(output, buffer);
             } catch (e) {
-                buffer = buffer + String(e);
+                buffer += String(e);
                 showCodeError(output, buffer);
             }
-        })();
+        }());
     }
-    
+
     return {
-        javascript: execute_javascript
+        javascript: execute_javascript,
     };
-});
-
-
-
+}));

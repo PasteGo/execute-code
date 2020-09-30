@@ -5,7 +5,16 @@
   "repository": "https://github.com/PasteGo/execute-code.git",
   "author": "Dup4",
   "license": "MIT",
-  "dependencies": {
+  "scripts" : {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/*.js",
+    "lint-html": "eslint src/*.js -f html -o ./reports/lint-results.html",
+    "lint-fix": "eslint --fix src/*.js"
+  },
+  "devDependencies": {
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
